@@ -1,4 +1,5 @@
 import logging
+from typing import Optional, cast, Any
 
 from panoramix.matcher import match
 from panoramix.utils.helpers import (
@@ -68,16 +69,16 @@ class Loader(EasyCopy):
         return res
 
     def __init__(self):
-        self.last_line = None
-        self.jump_dests = []
+        self.last_line = None | int
+        self.jump_dests: list[int] = []
         self.func_dests = {}  # func_name -> jumpdest
         self.hash_targets = {}  # hash -> (jumpdest, stack)
         self.func_list = []
 
         self.binary = None
 
-    def load_addr(self, address):
-        assert address.isalnum()
+    def load_addr(self, address: str):
+        assert address.isalnum(), "address is not in a correct format"
         address = address.lower()
 
         dir_ = cache_dir() / "code" / address[:5]
@@ -95,7 +96,7 @@ class Loader(EasyCopy):
             from web3 import Web3
             from web3.auto import w3
 
-            code = w3.eth.getCode(Web3.toChecksumAddress(address)).hex()[2:]
+            code = w3.eth.get_code(Web3.toChecksumAddress(address)).hex()[2:]
             if code:
                 with cache_fname.open("w+") as f:
                     f.write(code)
@@ -152,7 +153,7 @@ class Loader(EasyCopy):
             fname = get_func_name(hash)
             self.func_list.append((hash, fname, target, stack))
 
-    def next_line(self, i):
+    def next_line(self, i) -> int | None:
         i += 1
         while i not in self.lines and self.last_line > i:
             i += 1
@@ -186,9 +187,9 @@ class Loader(EasyCopy):
         for line_no, op, param in self.parsed_lines:
             yield f"{hex(line_no)}, {op}, {hex(param) if param is not None else ''}"
 
-    def load_binary(self, source):
-        stack = []
-        self.binary = []
+    def load_binary(self, source: str) -> dict[int, tuple[int, str, int | str]]:
+        stack: list[int] = []
+        self.binary: Optional[list[int]] = []
 
         if source[:2] == "0x":
             source = source[2:]
@@ -201,7 +202,7 @@ class Loader(EasyCopy):
 
         line = 0
 
-        parsed_lines = []
+        parsed_lines: list[tuple[int, str, Optional[int]]] = []
 
         while len(stack) > 0:
             popped = stack.pop()
@@ -223,7 +224,7 @@ class Loader(EasyCopy):
                     num_words = int(op[4:])
 
                     param = 0
-                    for i in range(num_words):
+                    for _ in range(num_words):
                         try:
                             param = param * 0x100 + stack.pop()
                             line += 1
@@ -235,9 +236,11 @@ class Loader(EasyCopy):
 
         self.parsed_lines = parsed_lines
         self.last_line = line
-        self.lines = {}
+        self.lines: dict[int, tuple[int, str, int | str]] = {}
 
         for line_no, op, param in parsed_lines:
+            # FIXME: are we sure that this will always be Some?
+            param = cast(int, param)
             if op[:4] == "push" and param > 1000000000000000:
                 param = pretty_bignum(
                     param

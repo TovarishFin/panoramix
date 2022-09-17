@@ -525,7 +525,7 @@ def find_f_set(exp, f):
     return ret
 
 
-def find_f_list(exp, f, default=None):
+def find_f_list(exp, f):
     ret = f(exp) or []
 
     if type(exp) in (list, tuple):
