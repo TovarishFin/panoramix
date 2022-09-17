@@ -3,7 +3,6 @@ import io
 import json
 import logging
 import os
-import sys
 from contextlib import redirect_stdout
 
 import timeout_decorator
@@ -18,6 +17,7 @@ from panoramix.whiles import make_whiles
 from panoramix.utils.helpers import C, rewrite_trace
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 @dataclasses.dataclass

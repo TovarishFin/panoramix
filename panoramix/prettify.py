@@ -113,7 +113,7 @@ def format_exp(exp):
     if type(exp) == str:
         return f'"{exp}"'
     if type(exp) == int:
-        if exp > 10 ** 6 and exp % 10 ** 6 != 0:
+        if exp > 10**6 and exp % 10**6 != 0:
             return hex(exp)
         else:
             return str(exp)
@@ -855,7 +855,7 @@ def pretty_num(exp, add_color):
         if exp - int(exp) == 0:
             exp = int(exp)
 
-    if type(exp) == int and exp > 8 ** 50:
+    if type(exp) == int and exp > 8**50:
         return hex(
             exp
         )  # dealing with binary data probably, usually in call code - display in hex
@@ -864,8 +864,8 @@ def pretty_num(exp, add_color):
         count = 18
         while count >= 9:
 
-            if exp % (10 ** count) == 0:
-                if exp // (10 ** count) == 1:
+            if exp % (10**count) == 0:
+                if exp // (10**count) == 1:
                     return f"10^{count}"
                 else:
                     return f"{exp // (10**count)} * 10^{count}"
@@ -873,8 +873,8 @@ def pretty_num(exp, add_color):
             count -= 1
 
         count = 6
-        if exp % (10 ** count) == 0:
-            if exp // (10 ** count) == 1:
+        if exp % (10**count) == 0:
+            if exp // (10**count) == 1:
                 return f"10^{count}"
             else:
                 return f"{exp // (10**count)} * 10^{count}"
@@ -884,7 +884,7 @@ def pretty_num(exp, add_color):
             return try_fname(exp, add_color)
 
         elif (
-            type(exp) == int and (exp & 2 ** 256 - 1) < 8 ** 30
+            type(exp) == int and (exp & 2**256 - 1) < 8**30
         ):  # if it's larger than 30 bytes, it's probably
             # an address, not a negative number
             return str(to_real_int(exp))
@@ -986,6 +986,9 @@ def prettify(exp, rem_bool=False, parentheses=True, top_level=False, add_color=F
 
     if exp == "gasprice":
         return "block.gasprice"
+
+    if exp == "basefee":
+        return "block.basefee"
 
     if exp == "timestamp":
         return "block.timestamp"
@@ -1190,9 +1193,23 @@ def prettify(exp, rem_bool=False, parentheses=True, top_level=False, add_color=F
             elif exp[3] <= 8 and exp[3] >= -8:
                 return pret(("mul", val, 2 ** exp[3]), parentheses=parentheses)
             elif exp[3] > 0:
-                return pret(("shl", exp[3], val,), parentheses=parentheses)
+                return pret(
+                    (
+                        "shl",
+                        exp[3],
+                        val,
+                    ),
+                    parentheses=parentheses,
+                )
             else:
-                return pret(("shr", -exp[3], val,), parentheses=parentheses)
+                return pret(
+                    (
+                        "shr",
+                        -exp[3],
+                        val,
+                    ),
+                    parentheses=parentheses,
+                )
 
         if all_concrete(size, offset, shl, val):
             return pret(apply_mask(exp[4], exp[1], exp[2], exp[3]))
@@ -1247,7 +1264,7 @@ def prettify(exp, rem_bool=False, parentheses=True, top_level=False, add_color=F
     if m := match(exp, ("mask", ":size", ":offset", ":val")):
         size, offset, val = m.size, m.offset, m.val
         if type(size) == int and offset == 0 and size < 64:
-            return pret(("mod", val, 2 ** size), parentheses=parentheses)
+            return pret(("mod", val, 2**size), parentheses=parentheses)
         else:
             return "Mask({}, {}, {})".format(pret(size), pret(offset), pret(val))
 

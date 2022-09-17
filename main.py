@@ -18,7 +18,7 @@ elif "--errors" in sys.argv:
 else:
     log_level = logging.INFO
 
-logging.getLogger("panoramix.matcher").setLevel(logging.INFO)
+logging.getLogger("panoramix.matcher").setLevel(logging.DEBUG)
 
 coloredlogs.install(
     level=log_level,

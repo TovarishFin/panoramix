@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "panoramix"
+version = "0.1.0"
+description = ""
+authors = ["TovarishFin <tovarishfin@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+coloredlogs = "^15.0.1"
+requests = "^2.28.1"
+web3 = "^5.30.0"
+timeout-decorator = "^0.5.0"
+appdirs = "^1.4.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
