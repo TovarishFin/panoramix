@@ -223,7 +223,7 @@ def _decompile_with_loader(loader, only_func_name=None) -> Decompilation:
         Print out decompilation header
         """
 
-        print(C.gray + "# Palkeoramix decompiler. " + C.end)
+        print(C.gray + "# Tovaramix decompiler. " + C.end)
 
         if len(problems) > 0:
             print(C.gray + "#")
