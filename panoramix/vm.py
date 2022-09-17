@@ -8,7 +8,6 @@ from panoramix.core import arithmetic
 from panoramix.core.algebra import (
     CannotCompare,
     add_op,
-    bits,
     lt_op,
     mask_op,
     minus_op,
@@ -19,7 +18,6 @@ from panoramix.core.algebra import (
 )
 from panoramix.core.arithmetic import is_zero, simplify_bool
 from panoramix.matcher import match
-from panoramix.prettify import pprint_trace
 from panoramix.utils.helpers import (
     C,
     EasyCopy,

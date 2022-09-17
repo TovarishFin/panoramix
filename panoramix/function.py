@@ -1,4 +1,3 @@
-import collections
 import json
 import logging
 from copy import deepcopy
@@ -8,16 +7,10 @@ from panoramix.core.masks import mask_to_type, type_to_mask
 from panoramix.matcher import Any, match
 from panoramix.prettify import explain_text, pprint_logic, prettify
 from panoramix.utils.helpers import (
-    COLOR_BLUE,
     COLOR_BOLD,
-    COLOR_GRAY,
     COLOR_GREEN,
     COLOR_HEADER,
-    COLOR_OKGREEN,
-    COLOR_UNDERLINE,
-    COLOR_WARNING,
     ENDC,
-    FAIL,
     C,
     EasyCopy,
     color,

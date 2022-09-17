@@ -5,16 +5,12 @@ import panoramix.folder as folder
 import panoramix.sparser as sparser
 from panoramix.function import Function
 from panoramix.matcher import Any, match
-from panoramix.prettify import pprint_ast, pprint_trace, prettify, pretty_stor
+from panoramix.prettify import prettify
 from panoramix.sparser import get_loc, get_name
 from panoramix.utils.helpers import (
-    COLOR_GREEN,
-    ENDC,
     find_f_list,
     opcode,
     replace_f,
-    replace_lines,
-    to_exp2,
     tuplify,
 )
 

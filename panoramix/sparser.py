@@ -1,22 +1,12 @@
 import logging
 
-from panoramix.core.algebra import divisible_bytes, minus_op, safe_le_op, to_bytes
-from panoramix.core.masks import mask_to_type
+from panoramix.core.algebra import safe_le_op
 from panoramix.matcher import Any, match
-from panoramix.prettify import pprint_trace, pretty_stor
 from panoramix.utils.helpers import (
-    COLOR_GRAY,
-    COLOR_GREEN,
-    ENDC,
-    find_f,
-    get_op,
     hashable,
     opcode,
     replace,
     replace_f,
-    replace_lines,
-    to_exp2,
-    tuplify,
 )
 
 logger = logging.getLogger(__name__)

@@ -11,7 +11,7 @@ import panoramix.folder as folder
 from panoramix.contract import Contract
 from panoramix.function import Function
 from panoramix.loader import Loader
-from panoramix.prettify import explain, pprint_repr, pprint_trace, pretty_type
+from panoramix.prettify import explain, pprint_repr, pretty_type
 from panoramix.utils.helpers import C, rewrite_trace
 from panoramix.vm import VM
 from panoramix.whiles import make_whiles

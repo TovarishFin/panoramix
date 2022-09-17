@@ -1,20 +1,14 @@
 import logging
 import sys
-from copy import deepcopy
 from functools import partial
 
 import panoramix.core.arithmetic as arithmetic
 from panoramix.core.algebra import (
-    add_op,
     apply_mask,
-    ge_zero,
-    lt_op,
     minus_op,
     mul_op,
     safe_ge_zero,
     safe_le_op,
-    sub_op,
-    to_bytes,
 )
 from panoramix.core.arithmetic import is_zero, simplify_bool
 from panoramix.core.masks import get_bit, mask_to_type
@@ -26,8 +20,6 @@ from panoramix.utils.helpers import (
     COLOR_GRAY,
     COLOR_GREEN,
     COLOR_HEADER,
-    COLOR_OKGREEN,
-    COLOR_UNDERLINE,
     COLOR_WARNING,
     ENDC,
     FAIL,

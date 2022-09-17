@@ -1,45 +1,27 @@
-import collections
 import logging
-import sys
 from copy import copy
 
 import panoramix.core.arithmetic as arithmetic
 from panoramix.core.algebra import (
     _max_op,
-    add_ge_zero,
     add_op,
     apply_mask,
-    apply_mask_to_storage,
     bits,
-    calc_max,
     div_op,
     divisible_bytes,
-    flatten_adds,
-    ge_zero,
-    get_sign,
-    le_op,
-    lt_op,
     mask_op,
-    max_op,
     max_to_add,
-    min_op,
     minus_op,
     mul_op,
     neg_mask_op,
-    or_op,
     safe_ge_zero,
     safe_le_op,
     safe_lt_op,
-    safe_max_op,
-    safe_min_op,
-    simplify,
-    simplify_max,
     sub_op,
     to_bytes,
-    try_add,
 )
 from panoramix.core.arithmetic import is_zero, to_real_int
-from panoramix.core.masks import get_bit, to_mask, to_neg_mask
+from panoramix.core.masks import to_mask, to_neg_mask
 from panoramix.core.memloc import (
     apply_mask_to_range,
     fill_mem,
@@ -53,14 +35,9 @@ from panoramix.matcher import Any, match
 from panoramix.postprocess import cleanup_mul_1
 from panoramix.prettify import (
     explain,
-    pformat_trace,
-    pprint_repr,
-    pprint_trace,
-    pretty_repr,
 )
 from panoramix.rewriter import postprocess_exp, postprocess_trace, rewrite_string_stores
 from panoramix.utils.helpers import (
-    C,
     cached,
     contains,
     find_f_list,

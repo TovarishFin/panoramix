@@ -1,13 +1,8 @@
-import json
 import logging
-import os
-import os.path
-import traceback
 
 from panoramix.matcher import match
 from panoramix.utils.helpers import (
     COLOR_GRAY,
-    ENDC,
     EasyCopy,
     cache_dir,
     colorize,

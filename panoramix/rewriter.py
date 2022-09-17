@@ -1,68 +1,10 @@
-import collections
-import logging
-from copy import copy
-from time import gmtime, strftime
 
-import panoramix.core.arithmetic as arithmetic
-from panoramix.core.algebra import (
-    _max_op,
-    add_ge_zero,
-    add_op,
-    apply_mask,
-    apply_mask_to_storage,
-    bits,
-    calc_max,
-    divisible_bytes,
-    flatten_adds,
-    ge_zero,
-    get_sign,
-    le_op,
-    lt_op,
-    mask_op,
-    max_op,
-    max_to_add,
-    min_op,
-    minus_op,
-    mul_op,
-    neg_mask_op,
-    or_op,
-    safe_ge_zero,
-    safe_le_op,
-    safe_lt_op,
-    safe_max_op,
-    safe_min_op,
-    simplify,
-    simplify_max,
-    sub_op,
-    to_bytes,
-    try_add,
-)
-from panoramix.core.arithmetic import is_zero, to_real_int
-from panoramix.core.masks import get_bit, to_mask, to_neg_mask
-from panoramix.core.memloc import (
-    apply_mask_to_range,
-    memloc_overwrite,
-    range_overlaps,
-    sizeof,
-    split_setmem,
-    split_store,
-    splits_mem,
-)
 from panoramix.matcher import Any, match
-from panoramix.prettify import pformat_trace, pprint_trace
 from panoramix.utils.helpers import (
     contains,
     find_f_list,
-    find_f_set,
     is_array,
     opcode,
-    replace,
-    replace_f,
-    rewrite_trace,
-    rewrite_trace_full,
-    rewrite_trace_multiline,
-    to_exp2,
-    walk_trace,
 )
 
 """
@@ -362,7 +304,7 @@ def rewrite_string_stores(lines):
 def rewrite_memcpy(lines):  # 2
     assert len(lines) == 2
     l1 = lines[0]
-    l2 = lines[1]
+    lines[1]
 
     if m := match(
         l1,

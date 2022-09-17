@@ -1,80 +1,16 @@
-import collections
 import logging
-import sys
-from copy import copy
 
-from panoramix.core import arithmetic
-from panoramix.core.algebra import (
-    _max_op,
-    add_ge_zero,
-    add_op,
-    apply_mask,
-    apply_mask_to_storage,
-    bits,
-    calc_max,
-    div_op,
-    divisible_bytes,
-    flatten_adds,
-    ge_zero,
-    get_sign,
-    le_op,
-    lt_op,
-    mask_op,
-    max_op,
-    max_to_add,
-    min_op,
-    minus_op,
-    mul_op,
-    neg_mask_op,
-    or_op,
-    safe_ge_zero,
-    safe_le_op,
-    safe_lt_op,
-    safe_max_op,
-    safe_min_op,
-    simplify,
-    simplify_max,
-    sub_op,
-    to_bytes,
-    try_add,
-)
-from panoramix.core.arithmetic import is_zero, to_real_int
-from panoramix.core.masks import get_bit, to_mask, to_neg_mask
-from panoramix.core.memloc import (
-    apply_mask_to_range,
-    fill_mem,
-    memloc_overwrite,
-    range_overlaps,
-    split_setmem,
-    split_store,
-    splits_mem,
-)
+from panoramix.core.arithmetic import is_zero
 from panoramix.matcher import Any, match
-from panoramix.postprocess import cleanup_mul_1
 from panoramix.prettify import (
     explain,
-    pformat_trace,
-    pprint_repr,
-    pprint_trace,
-    pretty_repr,
 )
 from panoramix.simplify import simplify_trace
 from panoramix.utils.helpers import (
-    C,
-    contains,
     find_f_list,
-    find_f_set,
-    find_op_list,
     opcode,
     replace,
-    replace_f,
-    replace_f_stop,
     rewrite_trace,
-    rewrite_trace_full,
-    rewrite_trace_ifs,
-    rewrite_trace_multiline,
-    to_exp2,
-    walk_trace,
 )
 
 logger = logging.getLogger(__name__)
