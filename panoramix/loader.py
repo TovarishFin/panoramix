@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, cast, Any
+from typing import Optional, cast
 
 from panoramix.matcher import match
 from panoramix.utils.helpers import (
