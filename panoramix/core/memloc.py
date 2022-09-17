@@ -1,16 +1,6 @@
 import logging
 import sys
 
-from panoramix.matcher import Any, match
-from panoramix.utils.helpers import (
-    before_after,
-    cached,
-    contains,
-    is_array,
-    opcode,
-    replace,
-)
-
 from panoramix.core.algebra import (
     CannotCompare,
     add_ge_zero,
@@ -46,6 +36,15 @@ from panoramix.core.algebra import (
     try_add,
 )
 from panoramix.core.masks import find_mask
+from panoramix.matcher import Any, match
+from panoramix.utils.helpers import (
+    before_after,
+    cached,
+    contains,
+    is_array,
+    opcode,
+    replace,
+)
 
 logger = logging.getLogger(__name__)
 

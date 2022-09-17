@@ -16,10 +16,9 @@ import logging
 from copy import copy
 
 import panoramix.core.algebra as algebra
+from panoramix.core.masks import get_bit
 from panoramix.matcher import Any, match
 from panoramix.utils.helpers import opcode
-
-from panoramix.core.masks import get_bit
 
 logger = logging.getLogger(__name__)
 

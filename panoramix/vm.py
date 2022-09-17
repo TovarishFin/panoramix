@@ -1,11 +1,12 @@
 import logging
-import time
 import sys
+import time
 from copy import copy
 
-from panoramix.core import arithmetic
 import panoramix.utils.opcode_dict as opcode_dict
+from panoramix.core import arithmetic
 from panoramix.core.algebra import (
+    CannotCompare,
     add_op,
     bits,
     lt_op,
@@ -15,7 +16,6 @@ from panoramix.core.algebra import (
     or_op,
     sub_op,
     to_bytes,
-    CannotCompare,
 )
 from panoramix.core.arithmetic import is_zero, simplify_bool
 from panoramix.matcher import match

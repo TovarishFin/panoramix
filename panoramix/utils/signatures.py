@@ -6,7 +6,6 @@ import os.path
 import sys
 
 from panoramix.matcher import Any, match
-
 from panoramix.utils.helpers import (
     COLOR_BLUE,
     COLOR_BOLD,
@@ -18,10 +17,10 @@ from panoramix.utils.helpers import (
     COLOR_WARNING,
     ENDC,
     FAIL,
+    cache_dir,
     cleanup_mul_1,
     colorize,
     opcode,
-    cache_dir,
 )
 from panoramix.utils.supplement import fetch_sigs
 

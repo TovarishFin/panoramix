@@ -3,8 +3,10 @@ import logging
 
 import panoramix.folder as folder
 import panoramix.sparser as sparser
+from panoramix.function import Function
 from panoramix.matcher import Any, match
 from panoramix.prettify import pprint_ast, pprint_trace, prettify, pretty_stor
+from panoramix.sparser import get_loc, get_name
 from panoramix.utils.helpers import (
     COLOR_GREEN,
     ENDC,
@@ -15,9 +17,6 @@ from panoramix.utils.helpers import (
     to_exp2,
     tuplify,
 )
-
-from panoramix.function import Function
-from panoramix.sparser import get_loc, get_name
 
 logger = logging.getLogger(__name__)
 

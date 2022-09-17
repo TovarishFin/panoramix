@@ -50,6 +50,7 @@ from panoramix.core.memloc import (
     splits_mem,
 )
 from panoramix.matcher import Any, match
+from panoramix.postprocess import cleanup_mul_1
 from panoramix.prettify import (
     explain,
     pformat_trace,
@@ -57,6 +58,7 @@ from panoramix.prettify import (
     pprint_trace,
     pretty_repr,
 )
+from panoramix.rewriter import postprocess_exp, postprocess_trace, rewrite_string_stores
 from panoramix.utils.helpers import (
     C,
     cached,
@@ -76,9 +78,6 @@ from panoramix.utils.helpers import (
     to_exp2,
     walk_trace,
 )
-
-from panoramix.postprocess import cleanup_mul_1
-from panoramix.rewriter import postprocess_exp, postprocess_trace, rewrite_string_stores
 
 logger = logging.getLogger(__name__)
 logger.level = logging.CRITICAL  # switch to INFO for detailed

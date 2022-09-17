@@ -1,10 +1,11 @@
-import os
+import logging
 import math
+import os
 import re
 import string
-import logging
 from copy import copy, deepcopy
 from pathlib import Path
+
 from appdirs import user_cache_dir
 
 COLOR_HEADER = "\033[95m"

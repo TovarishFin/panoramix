@@ -9,12 +9,12 @@ from panoramix.utils.helpers import (
     COLOR_GRAY,
     ENDC,
     EasyCopy,
+    cache_dir,
     colorize,
     find_f,
     find_f_list,
     padded_hex,
     pretty_bignum,
-    cache_dir,
 )
 from panoramix.utils.opcode_dict import opcode_dict
 from panoramix.utils.signatures import get_func_name, make_abi

@@ -1,6 +1,5 @@
-from panoramix.utils.helpers import cached, cleanup_mul_1, opcode, to_exp2
-
 from panoramix.core.algebra import mul_op, sub_op
+from panoramix.utils.helpers import cached, cleanup_mul_1, opcode, to_exp2
 
 
 def type_to_mask(s):
