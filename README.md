@@ -5,6 +5,7 @@ This is an EVM decompiler.
 It is a fork of a fork of the Panoramix original repo that's not maintained actively by its author/s anymore: https://github.com/palkeo/panoramix.git
 
 The goal of this fork is to maintain Panoramix in a decent shape and to implement the missing opcode from the london hardfork, `basefee`.
+A longer term goal is to add type annotations for better readability.
 
 The code quality is still not great and the software is complex, it's mostly reserved for advanced users.
 
