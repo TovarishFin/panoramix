@@ -45,56 +45,56 @@ logger = logging.getLogger(__name__)
 def fold(trace):
 
     """
-        as_paths unfolds the trace into a list of branchless paths that the contract can
-        possibly take. 'if's are converted into condition assertions, e.g.
+    as_paths unfolds the trace into a list of branchless paths that the contract can
+    possibly take. 'if's are converted into condition assertions, e.g.
 
-        [x,
-         y,
-         z,
-         (if, cond,
-                [a,
-                 b,
-                 c,
-                 ...,
-                 q,
-                 w,
-                 e]
-               ,
-                 [d,
-                  e,
-                  f,
-                  ...,
-                  q,
-                  w,
-                  e])]
-
-        gets turned into
-
-        [
-            [x,
-             y,
-             z,
-             cond,
-             a,
+    [x,
+     y,
+     z,
+     (if, cond,
+            [a,
              b,
              c,
              ...,
              q,
              w,
-             e],
-
-             [x,
-              y,
-              z,
-              is_zero(cond),
-              d,
+             e]
+           ,
+             [d,
               e,
               f,
               ...,
               q,
               w,
-              e]
-        ]
+              e])]
+
+    gets turned into
+
+    [
+        [x,
+         y,
+         z,
+         cond,
+         a,
+         b,
+         c,
+         ...,
+         q,
+         w,
+         e],
+
+         [x,
+          y,
+          z,
+          is_zero(cond),
+          d,
+          e,
+          f,
+          ...,
+          q,
+          w,
+          e]
+    ]
     """
 
     try:

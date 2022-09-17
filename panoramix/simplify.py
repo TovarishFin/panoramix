@@ -240,7 +240,7 @@ def simplify_exp(exp):
 
     if opcode(exp) == "and":
         _, *terms = exp
-        real = 2 ** 256 - 1
+        real = 2**256 - 1
         symbols = []
         for t in terms:
             if type(t) == int and t >= 0:
@@ -250,7 +250,7 @@ def simplify_exp(exp):
             else:
                 symbols.append(t)
 
-        if real != 2 ** 256 - 1:
+        if real != 2**256 - 1:
             res = (real,)
         else:
             res = tuple()
@@ -296,7 +296,21 @@ def simplify_exp(exp):
         and m.num > 32
     ):
         add_terms = exp[-1][2:]  # the "..."
-        exp = ("add", m.num // 32, ("mask_shl", 256, 5, 0, ("add", 31,) + add_terms))
+        exp = (
+            "add",
+            m.num // 32,
+            (
+                "mask_shl",
+                256,
+                5,
+                0,
+                (
+                    "add",
+                    31,
+                )
+                + add_terms,
+            ),
+        )
 
     if m := match(exp, ("iszero", ("mask_shl", ":size", ":off", ":shl", ":val"))):
         exp = ("iszero", ("mask_shl", m.size, m.off, 0, m.val))
@@ -314,7 +328,7 @@ def simplify_exp(exp):
     ):
         return mask_op(m.exp2, size=size)
 
-    if (m := match(exp, ("mod", 0, Any))) :
+    if m := match(exp, ("mod", 0, Any)):
         exp = 0
 
     # same thing is added in both expressions ?
@@ -473,7 +487,7 @@ def simplify_exp(exp):
         )
 
     if type(exp) == int and to_real_int(exp) > -(
-        8 ** 22
+        8**22
     ):  # if it's larger than 30 bytes, it's probably
         # an address, not a negative number
         return to_real_int(exp)
@@ -689,10 +703,10 @@ assert canonise_max(("max", ("mul", 1, ("x", "y")), 4)) == ("max", 4, ("x", "y")
 
 def readability(trace):
     """
-        - replaces variable names with nicer ones,
-        - fixes empty memory in calls
-        - replaces 'max..' in setmems with msize variable
-            (max can only appear because of this)
+    - replaces variable names with nicer ones,
+    - fixes empty memory in calls
+    - replaces 'max..' in setmems with msize variable
+        (max can only appear because of this)
     """
 
     trace = replace_f(trace, canonise_max)
@@ -1157,7 +1171,7 @@ def apply_constraint(exp, constr):
             if m := match(
                 x, ("mask_shl", ":int:size", 5, ":int:shl", ("add", 31, ":val"))
             ):
-                return ("add", 32 * (2 ** m.shl), ("mask_shl", m.size, 5, m.shl, m.val))
+                return ("add", 32 * (2**m.shl), ("mask_shl", m.size, 5, m.shl, m.val))
             if m := match(x, ("mask_shl", ":int:size", 5, 0, ":val")):
                 return ("mask_shl", m.size, 5, 0, m.val)
 
@@ -1185,8 +1199,8 @@ def apply_constraint(exp, constr):
 def cleanup_conds(trace):
     """
 
-        removes ifs/whiles with conditions that are obviously true
-        and replace variables that need to be equal to a constant by that constant
+    removes ifs/whiles with conditions that are obviously true
+    and replace variables that need to be equal to a constant by that constant
 
     """
 
@@ -1366,8 +1380,8 @@ def cleanup_msize(trace, current_msize=0):
 
 def overwrites_mem(line, mem_idx):
     """
-        for a given line, returns True if it potentially
-        overwrites *any part* of memory index, False if it *for sure* doesn't
+    for a given line, returns True if it potentially
+    overwrites *any part* of memory index, False if it *for sure* doesn't
 
     """
     if m := match(line, ("setmem", ":set_idx", Any)):
@@ -1437,7 +1451,7 @@ assert affects(line_test, exp_test) == True
 def trace_uses_mem(trace, mem_idx):
     """
 
-        checks if memory is used anywhere in the trace
+    checks if memory is used anywhere in the trace
 
     """
 
@@ -1485,8 +1499,8 @@ def trace_uses_mem(trace, mem_idx):
 
 def cleanup_mems(trace, in_loop=False):
     """
-        for every setmem, replace future occurences of it with it's value,
-        if possible
+    for every setmem, replace future occurences of it with it's value,
+    if possible
 
     """
 
@@ -1525,7 +1539,14 @@ def cleanup_mems(trace, in_loop=False):
         elif opcode(line) == "while":
             _, cond, path, *rest = line
             path = cleanup_mems(path)
-            res.append(("while", cond, path,) + tuple(rest))
+            res.append(
+                (
+                    "while",
+                    cond,
+                    path,
+                )
+                + tuple(rest)
+            )
 
         elif opcode(line) == "if":
             _, cond, if_true, if_false = line
@@ -1592,26 +1613,26 @@ def replace_mem_exp(exp, mem_idx, mem_val):
 def replace_mem(trace, mem_idx, mem_val):
     """
 
-        replaces any reference to mem_idx in the trace
-        with a value of mem_val, up until a point of that mem being
-        overwritten
+    replaces any reference to mem_idx in the trace
+    with a value of mem_val, up until a point of that mem being
+    overwritten
 
-        mem[64] = 'X'
-        log mem[64]
-        mem[65] = 'Y'
-        log mem[64 len 1]
-        log mem[65]
-        mem[63] = 'Z'
-        ...
+    mem[64] = 'X'
+    log mem[64]
+    mem[65] = 'Y'
+    log mem[64 len 1]
+    log mem[65]
+    mem[63] = 'Z'
+    ...
 
-        into
+    into
 
-        mem[64] = 'X'
-        log 'X'
-        mem[65] = 'Y'
-        log mask(1, 'X')
-        log mem[65]
-        ... (the rest unchanged)
+    mem[64] = 'X'
+    log 'X'
+    mem[65] = 'Y'
+    log mask(1, 'X')
+    log mem[65]
+    ... (the rest unchanged)
 
     """
     mem_idx = simplify_exp(mem_idx)
@@ -1747,7 +1768,14 @@ def cleanup_vars(trace, required_after=None):
                 path,
                 required_after=required_after + find_op_list(trace[idx + 1 :], "var"),
             )
-            res.append(("while", cond, path,) + tuple(rest))
+            res.append(
+                (
+                    "while",
+                    cond,
+                    path,
+                )
+                + tuple(rest)
+            )
 
             a = parse_counters(line)
 
@@ -1778,7 +1806,7 @@ def cleanup_vars(trace, required_after=None):
 
 def replace_var(trace, var_idx, var_val):
     """
-        replace occurences of var, if possible
+    replace occurences of var, if possible
 
     """
 

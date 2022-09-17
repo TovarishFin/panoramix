@@ -136,10 +136,10 @@ def find_stores(exp):
 
 def rewrite_functions(functions):
     """
-        rewrites functions, putting storage names there,
-        then detects storage types and returns a list of those in a form of
-        ('def', name, loc, type)
-        that can be displayed by pretty_type from prettify
+    rewrites functions, putting storage names there,
+    then detects storage types and returns a list of those in a form of
+    ('def', name, loc, type)
+    that can be displayed by pretty_type from prettify
 
     """
 
@@ -429,11 +429,11 @@ def mask_to_mul(exp):
         size, offset, shl, val = m.size, m.offset, m.shl, m.val
         if shl > 0 and offset == 0 and size == 256 - shl:
             if shl <= 8:
-                return ("mul", 2 ** shl, val)
+                return ("mul", 2**shl, val)
 
         if shl < 0 and offset == -shl and size == 256 - offset:
             if shl >= -8:
-                return ("div", 2 ** shl, val)
+                return ("div", 2**shl, val)
 
     return exp
 
@@ -498,7 +498,7 @@ def _sparser(orig_storages):
                     ":idx",
                 ),
             )
-        ) and m.size == 2 ** m.o_shl:
+        ) and m.size == 2**m.o_shl:
             size, o_size, o_off, o_shl, arr_idx, idx = (
                 m.size,
                 m.o_size,

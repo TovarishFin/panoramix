@@ -140,10 +140,10 @@ class Function(EasyCopy):
 
     def make_params(self):
         """
-            figures out parameter types from the decompiled function code.
+        figures out parameter types from the decompiled function code.
 
-            does so by looking at all 'cd'/calldata occurences and figuring out
-            how they are accessed - are they masked? are they used as pointers?
+        does so by looking at all 'cd'/calldata occurences and figuring out
+        how they are accessed - are they masked? are they used as pointers?
 
         """
 
@@ -318,15 +318,15 @@ class Function(EasyCopy):
 
     def simplify_string_getter_from_storage(self):
         """
-            a heuristic for finding string getters and replacing them
-            with a simplified version
+        a heuristic for finding string getters and replacing them
+        with a simplified version
 
-            test cases: unicorn
-                        0xF7dF66B1D0203d362D7a3afBFd6728695Ae22619 name
-                        0xf8e386EDa857484f5a12e4B5DAa9984E06E73705 version
+        test cases: unicorn
+                    0xF7dF66B1D0203d362D7a3afBFd6728695Ae22619 name
+                    0xf8e386EDa857484f5a12e4B5DAa9984E06E73705 version
 
-            if you want to see how it works, turn this func off
-            and see how test cases decompile
+        if you want to see how it works, turn this func off
+        and see how test cases decompile
         """
 
         if not self.read_only:

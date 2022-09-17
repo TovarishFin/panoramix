@@ -2,7 +2,14 @@ import logging
 import sys
 
 from panoramix.matcher import Any, match
-from panoramix.utils.helpers import before_after, cached, contains, is_array, opcode, replace
+from panoramix.utils.helpers import (
+    before_after,
+    cached,
+    contains,
+    is_array,
+    opcode,
+    replace,
+)
 
 from panoramix.core.algebra import (
     CannotCompare,
@@ -163,7 +170,13 @@ def split_or(value):
         else:
             value = mask_op(value, size=size, offset=offset, shl=shl)
 
-        ret_rows.append((stor_size, stor_offset, value,))
+        ret_rows.append(
+            (
+                stor_size,
+                stor_offset,
+                value,
+            )
+        )
 
     if len(ret_rows) == 2:
         """
@@ -247,7 +260,7 @@ def sizeof(exp):  # returns size of expression in *bits*
     #    if exp ~ ('bytes', :l, _):
     #        return bits(l)
 
-    if type(exp) == int and exp > 2 ** 256:
+    if type(exp) == int and exp > 2**256:
         return bits(
             ((exp).bit_length() + 7) // 8
         )  # number of bytes needed to contain the number, rounded up
